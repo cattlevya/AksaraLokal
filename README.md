@@ -85,8 +85,3 @@ Beberapa akun testing lokal yang bisa langsung dipakai (password semua akun: pas
 ## Troubleshooting Tambahan
 - Jika bukti pembayaran atau gambar produk gagal diunggah, pastikan folder /public/assets/uploads/ dan /public/assets/images/ sudah memiliki permission untuk di-write (read/write access). Di environment Linux/Mac, gunakan chmod -R 777.
 - Jika grafik ASCII terlihat berantakan, pastikan Anda tidak menggunakan ekstensi browser yang merubah font text berjenis monospace.
-
----
-
-Kredit Khusus:
-Terima kasih kepada Bapak Mohammad Irham Akbar selaku dosen pengampu yang telah menantang kami dengan studi kasus OOP murni tanpa framework ini. Project yang sangat membantu menguatkan fondasi arsitektur web programming.
