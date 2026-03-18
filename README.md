@@ -49,7 +49,7 @@ Berikut adalah rincian fitur yang telah diimplementasikan dalam aplikasi ini ses
 Buka terminal/CMD, lalu arahkan ke folder `htdocs` (jika memakai XAMPP):
 ```bash
 cd C:\xampp\htdocs
-git clone https://github.com/mohammadirham37/nama-repo-kamu.git apakekmonyet
+git clone https://github.com/cattlevya/AksaraLokal pemweb2
 ```
 
 2. Persiapan Database
@@ -64,7 +64,7 @@ Buka file `/config/database.php`. Silakan sesuaikan username dan password databa
 4. Menjalankan Aplikasi
 Akses URL berikut di browser:
 ```text
-http://localhost/apakekmonyet/public/
+http://localhost/pemweb2/public/
 ```
 
 Beberapa akun testing lokal yang bisa langsung dipakai (password semua akun: password123):
