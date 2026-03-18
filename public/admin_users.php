@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Users Controller
- * Handles CRUD for master data users with pagination
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/AdminModel.php';
 require_once BASE_PATH . '/classes/User.php';
@@ -12,7 +9,6 @@ requireAdmin();
 $adminModel = new AdminModel();
 $userModel = new User();
 
-// ── Handle POST: Delete or Update Role ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid token. Please try again.');
@@ -22,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
     $userId = (int)($_POST['user_id'] ?? 0);
 
-    // Cannot modify self through this table easily to prevent lockouts
+    
     if ($userId === (int)$_SESSION['user_id']) {
         setFlash('error', 'Cannot alter your own active session account here.');
         redirect('/admin_users.php');
@@ -30,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'delete') {
         try {
-            // Delete user
+            
             $adminModel->deleteUser($userId);
             setFlash('success', 'User completely deleted from system.');
         } catch (PDOException $e) {
@@ -47,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/admin_users.php');
 }
 
-// ── Handle GET: Pagination ──
 $limit = 10;
 $page = max(1, (int)($_GET['page'] ?? 1));
 $offset = ($page - 1) * $limit;

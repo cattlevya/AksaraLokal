@@ -1,10 +1,6 @@
 <?php
 require_once BASE_PATH . '/classes/BaseModel.php';
 
-/**
- * User Model
- * Inherits from BaseModel — Encapsulation via Getter/Setter
- */
 class User extends BaseModel
 {
     protected string $table = 'users';
@@ -16,7 +12,7 @@ class User extends BaseModel
     private ?string $address = null;
     private ?string $phone = null;
 
-    // ── Getters ──────────────────────────────────────────
+    
     public function getId(): ?int { return $this->id; }
     public function getUsername(): string { return $this->username; }
     public function getEmail(): string { return $this->email; }
@@ -24,16 +20,15 @@ class User extends BaseModel
     public function getAddress(): ?string { return $this->address; }
     public function getPhone(): ?string { return $this->phone; }
 
-    // ── Setters ──────────────────────────────────────────
+    
     public function setUsername(string $username): void { $this->username = $username; }
     public function setEmail(string $email): void { $this->email = $email; }
     public function setRole(string $role): void { $this->role = $role; }
     public function setAddress(?string $address): void { $this->address = $address; }
     public function setPhone(?string $phone): void { $this->phone = $phone; }
 
-    /**
-     * Populate object from DB row
-     */
+    
+
     public function hydrate(array $data): self
     {
         $this->id       = (int) $data['id'];
@@ -45,9 +40,8 @@ class User extends BaseModel
         return $this;
     }
 
-    /**
-     * Find user by username
-     */
+    
+
     public function findByUsername(string $username): ?array
     {
         $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE username = :username LIMIT 1");
@@ -56,9 +50,8 @@ class User extends BaseModel
         return $result ?: null;
     }
 
-    /**
-     * Find user by email
-     */
+    
+
     public function findByEmail(string $email): ?array
     {
         $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE email = :email LIMIT 1");
@@ -67,9 +60,8 @@ class User extends BaseModel
         return $result ?: null;
     }
 
-    /**
-     * Authenticate user with password_verify
-     */
+    
+
     public function authenticate(string $username, string $password): ?array
     {
         $user = $this->findByUsername($username);
@@ -79,18 +71,16 @@ class User extends BaseModel
         return null;
     }
 
-    /**
-     * Register a new user with password_hash
-     */
+    
+
     public function register(array $data): int
     {
         $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
         return $this->create($data);
     }
 
-    /**
-     * Get all sellers
-     */
+    
+
     public function getSellers(): array
     {
         $stmt = $this->db->prepare("SELECT * FROM {$this->table} WHERE role = 'seller'");

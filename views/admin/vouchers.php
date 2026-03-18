@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Vouchers View
- * Variables: $vouchers
- */
+
 ?>
 <div class="mb-6 flex justify-between items-end">
     <div>
@@ -10,13 +7,12 @@
         <p class="text-taupe-mid text-sm mt-1">Manage platform-wide discounts and promotions.</p>
     </div>
     
-    <!-- Button to trigger Add Modal -->
+    
     <button type="button" onclick="openVoucherModal('create')" class="bg-taupe-dark hover:bg-[#7a6a58] text-off-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm w-40 text-center">
         + New Voucher
     </button>
 </div>
 
-<!-- Promo Navigation Tabs -->
 <div class="flex gap-8 mb-6 border-b border-taupe-light/30 px-1">
     <a href="<?= BASE_URL ?>/admin_vouchers.php" class="text-sm tracking-wide text-taupe-dark font-medium border-b-2 border-taupe-dark pb-3 -mb-[1px] no-underline">Vouchers</a>
     <a href="<?= BASE_URL ?>/admin_flash_sale.php" class="text-sm tracking-wide text-taupe-mid hover:text-taupe-dark transition-colors pb-3 no-underline">Flash Sale</a>
@@ -58,7 +54,7 @@
                         </td>
                         <td class="py-4 px-6 text-right">
                             <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <!-- Delete Button -->
+                                
                                 <form action="<?= BASE_URL ?>/admin_vouchers.php" method="POST" class="inline" onsubmit="return confirm('WARNING: Are you sure you want to delete this voucher?')">
                                     <?= csrfField() ?>
                                     <input type="hidden" name="action" value="delete">
@@ -79,7 +75,6 @@
     </div>
 </div>
 
-<!-- Modal Overlay -->
 <div id="voucherModal" class="fixed inset-0 bg-black/50 z-[100] hidden items-center justify-center backdrop-blur-sm transition-opacity">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden transform scale-95 transition-transform" id="voucherModalInner">
         <form action="<?= BASE_URL ?>/admin_vouchers.php" method="POST">

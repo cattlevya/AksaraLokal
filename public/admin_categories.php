@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Categories Controller
- * Handles CRUD for master data categories with server-side validation
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Category.php';
 
@@ -10,7 +7,6 @@ requireAdmin();
 
 $categoryModel = new Category();
 
-// ── Handle POST: Create, Update, Delete ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid token. Please try again.');
@@ -47,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/admin_categories.php');
 }
 
-// ── GET: Load all categories ──
 $categories = $categoryModel->getAllWithCount();
 
 $pageTitle = 'Manage Categories';

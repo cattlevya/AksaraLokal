@@ -1,8 +1,5 @@
 <?php
-/**
- * Seller Orders List View
- * Variables: $sellerOrders, $statusFilter, $statusCounts
- */
+
 $statusColors = [
     'pending'   => 'bg-taupe-cream/50 text-taupe-dark',
     'confirmed' => 'bg-taupe-cream/30 text-taupe-dark',
@@ -16,7 +13,6 @@ $statusColors = [
     <p class="text-sm text-taupe-mid mt-1">Review and process your incoming orders</p>
 </div>
 
-<!-- Status Filter Tabs -->
 <div class="flex items-center gap-1 mb-6 overflow-x-auto hide-scrollbar border-b border-taupe-light/20">
     <a href="<?= BASE_URL ?>/seller_orders.php" 
        class="px-4 py-2.5 text-xs font-medium tracking-wider uppercase no-underline border-b-2 transition-colors <?= !$statusFilter ? 'border-taupe-dark text-taupe-dark' : 'border-transparent text-taupe-mid hover:text-taupe-dark' ?>">

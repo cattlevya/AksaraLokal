@@ -1,7 +1,5 @@
 <?php
-/**
- * Login View
- */
+
 ?>
 <section class="max-w-md mx-auto px-4 py-16">
     <div class="bg-white rounded-2xl border border-taupe-light/30 p-8 shadow-sm">

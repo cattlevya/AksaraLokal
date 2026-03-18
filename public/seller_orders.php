@@ -1,9 +1,5 @@
 <?php
-/**
- * Seller Order Management Controller
- * Requires seller role
- * Handles: list (with filters), detail view, accept/reject payment, ship order
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Order.php';
 require_once BASE_PATH . '/classes/Product.php';
@@ -13,7 +9,6 @@ requireRole('seller');
 $sellerId   = $_SESSION['user_id'];
 $orderModel = new Order();
 
-// ── POST Actions ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid request.');
@@ -33,14 +28,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         setFlash('success', "Order #$orderId — Marked as shipped.");
     }
 
-    // Return to detail page if we came from there
+    
     if (isset($_POST['return_detail'])) {
         redirect('/seller_orders.php?id=' . $orderId);
     }
     redirect('/seller_orders.php');
 }
 
-// ── GET: Detail view ──
 if (isset($_GET['id'])) {
     $orderId = (int)$_GET['id'];
     $order = $orderModel->getSellerOrderDetail($orderId, $sellerId);
@@ -56,7 +50,6 @@ if (isset($_GET['id'])) {
     exit;
 }
 
-// ── GET: Order list ──
 $statusFilter = $_GET['status'] ?? null;
 $validStatuses = ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled'];
 if ($statusFilter && !in_array($statusFilter, $validStatuses)) {
@@ -65,7 +58,6 @@ if ($statusFilter && !in_array($statusFilter, $validStatuses)) {
 
 $sellerOrders = $orderModel->findBySellerFiltered($sellerId, $statusFilter);
 
-// Count per status for tab badges
 $allOrders = $orderModel->findBySellerFiltered($sellerId);
 $statusCounts = [
     'all'       => count($allOrders),

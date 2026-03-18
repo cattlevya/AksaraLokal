@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Flash Sale Management Controller
- * Handles: list products, set flash sale, remove flash sale platform-wide
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/AdminModel.php';
 require_once BASE_PATH . '/classes/Product.php';
@@ -12,7 +9,6 @@ requireAdmin();
 $adminModel = new AdminModel();
 $productModel = new Product();
 
-// ── POST Actions ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid token. Please try again.');
@@ -27,14 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $flashPrice = abs((float)($_POST['flash_sale_price'] ?? 0));
             $flashEnd   = trim($_POST['flash_sale_end'] ?? '');
 
-            // Validate
+            
             if ($productId <= 0 || $flashPrice <= 0 || empty($flashEnd)) {
                 setFlash('error', 'Please fill in all flash sale fields.');
                 redirect('/admin_flash_sale.php');
-                exit; // Need to exit after redirect in case switches bleed
+                exit; 
             }
 
-            // Validate end date is in the future
+            
             $endTimestamp = strtotime($flashEnd);
             if (!$endTimestamp || $endTimestamp <= time()) {
                 setFlash('error', 'Flash sale end date must be in the future.');
@@ -69,12 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
 }
 
-// ── GET: Load data and render view ──
-
-// To populate the select dropdown for products (we load all active products)
 $allProducts = $productModel->getActive(1000); 
 
-// For the table, we reuse getFlashSale() from Product.php which fetches all active flash sales
 $flashSales = $productModel->getFlashSale();
 
 $pageTitle = 'Flash Sale Manager';

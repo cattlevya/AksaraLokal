@@ -1,8 +1,5 @@
 <?php
-/**
- * Seller Product List View
- * Variables: $sellerProducts
- */
+
 ?>
 <div class="flex items-center justify-between mb-6">
     <div>

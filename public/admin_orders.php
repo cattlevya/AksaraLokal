@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Orders Controller
- * Validates Payment Proofs and updates verification status
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/AdminModel.php';
 require_once BASE_PATH . '/classes/Order.php';
@@ -12,7 +9,6 @@ requireAdmin();
 $adminModel = new AdminModel();
 $orderModel = new Order();
 
-// ── Handle POST: Verify Payment ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid token. Please try again.');
@@ -23,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $orderId = (int)($_POST['order_id'] ?? 0);
 
     if ($action === 'verify_payment') {
-        // Change from pending to confirmed
+        
         if ($orderModel->updateStatus($orderId, 'confirmed')) {
             setFlash('success', 'Order #' . $orderId . ' payment verified. Status updated to Confirmed.');
         } else {
@@ -34,7 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/admin_orders.php');
 }
 
-// ── GET: Pagination ──
 $limit = 10;
 $page = max(1, (int)($_GET['page'] ?? 1));
 $offset = ($page - 1) * $limit;

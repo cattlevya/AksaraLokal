@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Categories View
- * Variables: $categories
- */
+
 ?>
 <div class="mb-6 flex justify-between items-end">
     <div>
@@ -10,7 +7,7 @@
         <p class="text-taupe-mid text-sm mt-1">Organize the platform's product taxonomy.</p>
     </div>
     
-    <!-- Button to trigger Add Modal -->
+    
     <button type="button" onclick="openCatModal('create')" class="bg-taupe-dark hover:bg-[#7a6a58] text-off-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm">
         + New Category
     </button>
@@ -39,12 +36,12 @@
                         </td>
                         <td class="py-4 px-6 text-right">
                             <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <!-- Edit Button -->
+                                
                                 <button type="button" onclick="openCatModal('update', <?= $c['id'] ?>, '<?= htmlspecialchars(addslashes($c['name'])) ?>')" class="p-1.5 text-taupe-mid hover:text-taupe-dark hover:bg-taupe-cream/50 rounded transition-colors" title="Edit Category">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
                                 </button>
                                 
-                                <!-- Delete Button -->
+                                
                                 <form action="<?= BASE_URL ?>/admin_categories.php" method="POST" class="inline" onsubmit="return confirm('WARNING: Deleting a category will fail if products still exist in it. Proceed?')">
                                     <?= csrfField() ?>
                                     <input type="hidden" name="action" value="delete">
@@ -65,7 +62,6 @@
     </div>
 </div>
 
-<!-- Modal Overlay -->
 <div id="catModal" class="fixed inset-0 bg-black/50 z-[100] hidden items-center justify-center backdrop-blur-sm transition-opacity">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-md overflow-hidden transform scale-95 transition-transform" id="catModalInner">
         <form action="<?= BASE_URL ?>/admin_categories.php" method="POST">

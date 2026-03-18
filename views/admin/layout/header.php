@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Layout Header
- * Dedicated navigation for Admin center
- */
+
 $user = currentUser();
 $flash = getFlash();
 $currentPage = basename($_SERVER['SCRIPT_NAME']);
@@ -60,7 +57,7 @@ $currentPage = basename($_SERVER['SCRIPT_NAME']);
 </head>
 <body class="min-h-screen pb-28">
 
-    <!-- ═══ Admin Top Bar ═══ -->
+    
     <header class="bg-taupe-dark text-off-white sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -80,7 +77,7 @@ $currentPage = basename($_SERVER['SCRIPT_NAME']);
         </div>
     </header>
 
-    <!-- Flash Messages -->
+    
     <?php if ($flash): ?>
     <div id="toast-notif" class="fixed top-16 right-4 z-[60] max-w-sm animate-[slideIn_0.3s_ease] rounded-xl px-5 py-3 text-sm font-medium shadow-lg backdrop-blur-md <?= ($flash['type'] ?? '') === 'error' ? 'bg-taupe-dark/90 text-taupe-cream border border-taupe-mid' : 'bg-white/90 text-taupe-dark border border-taupe-light/40' ?>" onclick="this.remove()">
         <?= e($flash['message']) ?>

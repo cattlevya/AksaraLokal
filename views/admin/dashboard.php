@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Dashboard View
- * Variables: $globalRevenue, $totalUsers, $totalProducts, $totalOrders, $totalCategories
- */
+
 ?>
 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
     <div>
@@ -20,7 +17,7 @@
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-    <!-- Revenue Card (Prominent) -->
+    
     <div class="lg:col-span-1 bg-white rounded-xl border border-taupe-light/30 p-6 flex flex-col justify-center shadow-sm">
         <div class="flex items-center justify-between mb-6">
             <h2 class="font-serif text-xl text-taupe-dark">Total Revenue</h2>
@@ -32,9 +29,9 @@
         <p class="text-xs text-taupe-mid">From all confirmed & shipped orders</p>
     </div>
 
-    <!-- 4 Metrics Grid -->
+    
     <div class="lg:col-span-2 grid grid-cols-2 gap-4">
-        <!-- Users -->
+        
         <a href="<?= BASE_URL ?>/admin_users.php" class="bg-white rounded-xl border border-taupe-light/30 p-5 hover:border-taupe-mid transition-all no-underline group block shadow-sm">
             <div class="flex items-center justify-between mb-3">
                 <p class="text-xs text-taupe-mid uppercase tracking-wider font-medium group-hover:text-taupe-dark transition-colors">Users</p>
@@ -46,7 +43,7 @@
             <p class="text-[10px] text-taupe-mid mt-1">Platform-wide</p>
         </a>
 
-        <!-- Categories -->
+        
         <a href="<?= BASE_URL ?>/admin_categories.php" class="bg-white rounded-xl border border-taupe-light/30 p-5 hover:border-taupe-mid transition-all no-underline group block shadow-sm">
             <div class="flex items-center justify-between mb-3">
                 <p class="text-xs text-taupe-mid uppercase tracking-wider font-medium group-hover:text-taupe-dark transition-colors">Categories</p>
@@ -58,7 +55,7 @@
             <p class="text-[10px] text-taupe-mid mt-1">Product taxonomy</p>
         </a>
 
-        <!-- Products -->
+        
         <a href="<?= BASE_URL ?>/admin_products.php" class="bg-white rounded-xl border border-taupe-light/30 p-5 hover:border-taupe-mid transition-all no-underline group block shadow-sm">
             <div class="flex items-center justify-between mb-3">
                 <p class="text-xs text-taupe-mid uppercase tracking-wider font-medium group-hover:text-taupe-dark transition-colors">Products</p>
@@ -70,7 +67,7 @@
             <p class="text-[10px] text-taupe-mid mt-1">Total listings</p>
         </a>
 
-        <!-- Orders -->
+        
         <a href="<?= BASE_URL ?>/admin_orders.php" class="bg-white rounded-xl border border-taupe-light/30 p-5 hover:border-taupe-mid transition-all no-underline group block shadow-sm">
             <div class="flex items-center justify-between mb-3">
                 <p class="text-xs text-taupe-mid uppercase tracking-wider font-medium group-hover:text-taupe-dark transition-colors">Orders</p>

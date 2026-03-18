@@ -1,22 +1,16 @@
 <?php
 require_once BASE_PATH . '/classes/BaseModel.php';
 
-/**
- * Admin Model
- * Inherits from BaseModel. Handles admin-specific queries securely via PDO.
- * Encapsulation implemented via access modifiers. 
- */
 class AdminModel extends BaseModel
 {
-    // No specific table defined as Admin queries often span across multiple tables.
+    
 
-    /**
-     * Get platform-wide global sales report (Total Revenue)
-     */
+    
+
     public function getGlobalRevenue(): float
     {
-        // Only count 'shipped' or 'delivered' orders, or 'confirmed'. 
-        // For this CPMK-01 context, 'confirmed', 'shipped', 'delivered' imply paid.
+        
+        
         $stmt = $this->db->prepare("
             SELECT SUM(total_amount) as total_revenue 
             FROM orders 
@@ -27,12 +21,11 @@ class AdminModel extends BaseModel
         return (float) ($result['total_revenue'] ?? 0);
     }
     
-    /**
-     * Get total number of specific entities
-     */
+    
+
     public function countEntity(string $table): int
     {
-        // Parameterized queries cannot be used for table names. We must whitelist/sanitize it.
+        
         $allowedTables = ['users', 'products', 'orders', 'categories', 'vouchers'];
         if (!in_array($table, $allowedTables)) {
             throw new InvalidArgumentException("Invalid table name for count.");
@@ -42,9 +35,8 @@ class AdminModel extends BaseModel
         return (int) $stmt->fetchColumn();
     }
 
-    /**
-     * Get paginated users
-     */
+    
+
     public function getUsersPaginated(int $limit, int $offset): array
     {
         $stmt = $this->db->prepare("SELECT * FROM users ORDER BY created_at DESC LIMIT :limit OFFSET :offset");
@@ -54,20 +46,18 @@ class AdminModel extends BaseModel
         return $stmt->fetchAll();
     }
     
-    /**
-     * Delete user securely
-     */
+    
+
     public function deleteUser(int $id): bool
     {
-        // Delete related dependent data if needed, or rely on ON DELETE CASCADE.
-        // For standard setup without cascade, we must be careful. 
-        // We'll just delete the user, and if a foreign key constraint fails, PDO will throw.
+        
+        
+        
         $stmt = $this->db->prepare("DELETE FROM users WHERE id = :id");
         return $stmt->execute(['id' => $id]);
     }
-    /**
-     * Get paginated products for admin (includes inactive)
-     */
+    
+
     public function getProductsPaginated(int $limit, int $offset): array
     {
         $stmt = $this->db->prepare(
@@ -84,12 +74,11 @@ class AdminModel extends BaseModel
         return $stmt->fetchAll();
     }
     
-    /**
-     * Toggle product active status (Admin override)
-     */
+    
+
     public function toggleProductStatus(int $productId): bool
     {
-        // First get current status
+        
         $stmt = $this->db->prepare("SELECT is_active FROM products WHERE id = :id");
         $stmt->execute(['id' => $productId]);
         $current = $stmt->fetchColumn();
@@ -100,9 +89,8 @@ class AdminModel extends BaseModel
         $update = $this->db->prepare("UPDATE products SET is_active = :status WHERE id = :id");
         return $update->execute(['status' => $newStatus, 'id' => $productId]);
     }
-    /**
-     * Get paginated orders for admin
-     */
+    
+
     public function getGlobalOrdersPaginated(int $limit, int $offset): array
     {
         $stmt = $this->db->prepare(
@@ -117,12 +105,11 @@ class AdminModel extends BaseModel
         $stmt->execute();
         return $stmt->fetchAll();
     }
-    /**
-     * Set flash sale for any product (Admin override)
-     */
+    
+
     public function setFlashSaleAdmin(int $productId, float $price, string $endDate): bool
     {
-        // Must ensure the price is actually lower than the regular price
+        
         $stmt = $this->db->prepare("SELECT price FROM products WHERE id = :id");
         $stmt->execute(['id' => $productId]);
         $normalPrice = $stmt->fetchColumn();
@@ -139,9 +126,8 @@ class AdminModel extends BaseModel
         ]);
     }
     
-    /**
-     * Remove flash sale from any product (Admin override)
-     */
+    
+
     public function removeFlashSaleAdmin(int $productId): bool
     {
         $update = $this->db->prepare("UPDATE products SET flash_sale_price = NULL, flash_sale_end = NULL WHERE id = :id");

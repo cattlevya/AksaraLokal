@@ -1,8 +1,5 @@
 <?php
-/**
- * Product Detail Handler
- * GET: ?id=N
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Product.php';
 

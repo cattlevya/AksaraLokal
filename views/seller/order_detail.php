@@ -1,8 +1,5 @@
 <?php
-/**
- * Seller Order Detail View
- * Variables: $order (with items, buyer info, payment proof)
- */
+
 $statusColors = [
     'pending'   => 'bg-taupe-cream/50 text-taupe-dark border-taupe-light',
     'confirmed' => 'bg-taupe-cream/30 text-taupe-dark border-taupe-light/50',
@@ -27,9 +24,9 @@ $statusIcons = [
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-    <!-- ── Left: Order Info + Items ── -->
+    
     <div class="lg:col-span-2 space-y-6">
-        <!-- Order Header -->
+        
         <div class="bg-white rounded-xl border border-taupe-light/30 p-6">
             <div class="flex items-start justify-between mb-4">
                 <div>
@@ -41,7 +38,7 @@ $statusIcons = [
                 </span>
             </div>
 
-            <!-- Buyer Info -->
+            
             <div class="bg-taupe-cream/15 rounded-lg p-4">
                 <h3 class="text-xs font-medium text-taupe-dark uppercase tracking-wider mb-2">Customer Details</h3>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
@@ -65,7 +62,7 @@ $statusIcons = [
             </div>
         </div>
 
-        <!-- Order Items -->
+        
         <div class="bg-white rounded-xl border border-taupe-light/30 p-6">
             <h3 class="text-xs font-medium text-taupe-dark uppercase tracking-wider mb-4">Ordered Items</h3>
             <div class="space-y-4">
@@ -96,9 +93,9 @@ $statusIcons = [
         </div>
     </div>
 
-    <!-- ── Right: Payment & Actions ── -->
+    
     <div class="space-y-6">
-        <!-- Payment Proof -->
+        
         <div class="bg-white rounded-xl border border-taupe-light/30 p-6">
             <h3 class="text-xs font-medium text-taupe-dark uppercase tracking-wider mb-4">Payment Proof</h3>
 
@@ -110,7 +107,7 @@ $statusIcons = [
             </div>
             <p class="text-[10px] text-taupe-mid text-center">Click image to enlarge</p>
 
-            <!-- Zoom Modal -->
+            
             <div id="proof-modal" class="hidden fixed inset-0 z-[100] bg-black/80 flex items-center justify-center p-4" onclick="this.classList.add('hidden')">
                 <div class="max-w-3xl max-h-[90vh] overflow-auto">
                     <img src="<?= BASE_URL ?>/assets/uploads/<?= e($order['payment_proof']) ?>" alt="Payment Proof Full" class="max-w-full h-auto rounded-lg">
@@ -128,7 +125,7 @@ $statusIcons = [
             <?php endif; ?>
         </div>
 
-        <!-- Action Buttons -->
+        
         <div class="bg-white rounded-xl border border-taupe-light/30 p-6">
             <h3 class="text-xs font-medium text-taupe-dark uppercase tracking-wider mb-4">Actions</h3>
 
@@ -178,7 +175,7 @@ $statusIcons = [
             <?php endif; ?>
         </div>
 
-        <!-- Order Timeline -->
+        
         <div class="bg-white rounded-xl border border-taupe-light/30 p-6">
             <h3 class="text-xs font-medium text-taupe-dark uppercase tracking-wider mb-4">Status Timeline</h3>
             <div class="space-y-3">

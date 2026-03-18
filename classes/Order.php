@@ -1,10 +1,6 @@
 <?php
 require_once BASE_PATH . '/classes/BaseModel.php';
 
-/**
- * Order Model
- * Handles order creation with PDO Transaction + pessimistic locking
- */
 class Order extends BaseModel
 {
     protected string $table = 'orders';
@@ -16,34 +12,26 @@ class Order extends BaseModel
     private string $paymentMethod = 'bank_transfer';
     private ?string $paymentProof = null;
 
-    // ── Getters ──────────────────────────────────────────
+    
     public function getId(): ?int { return $this->id; }
     public function getBuyerId(): int { return $this->buyerId; }
     public function getTotalAmount(): float { return $this->totalAmount; }
     public function getStatus(): string { return $this->status; }
     public function getPaymentProof(): ?string { return $this->paymentProof; }
 
-    // ── Setters ──────────────────────────────────────────
+    
     public function setBuyerId(int $id): void { $this->buyerId = $id; }
     public function setTotalAmount(float $amount): void { $this->totalAmount = $amount; }
     public function setStatus(string $status): void { $this->status = $status; }
 
-    /**
-     * Create order with items — uses Transaction + SELECT FOR UPDATE
-     *
-     * @param int   $buyerId
-     * @param array $cartItems  [['product_id' => int, 'quantity' => int, 'unit_price' => float], ...]
-     * @param float $totalAmount
-     * @param string|null $paymentProof
-     * @return int Order ID
-     * @throws Exception on stock issues or DB failure
-     */
+    
+
     public function createWithItems(int $buyerId, array $cartItems, float $totalAmount, ?string $paymentProof = null): int
     {
         $this->db->beginTransaction();
 
         try {
-            // 1. Lock and validate stock for each product (Pessimistic Locking)
+            
             $productModel = new Product();
             foreach ($cartItems as $item) {
                 $product = $productModel->lockForUpdate($item['product_id']);
@@ -55,7 +43,7 @@ class Order extends BaseModel
                 }
             }
 
-            // 2. Create the order
+            
             $orderId = $this->create([
                 'buyer_id'       => $buyerId,
                 'total_amount'   => $totalAmount,
@@ -64,7 +52,7 @@ class Order extends BaseModel
                 'payment_proof'  => $paymentProof,
             ]);
 
-            // 3. Insert order items & decrement stock
+            
             foreach ($cartItems as $item) {
                 $stmtItem = $this->db->prepare(
                     "INSERT INTO order_items (order_id, product_id, quantity, unit_price)
@@ -91,9 +79,8 @@ class Order extends BaseModel
         }
     }
 
-    /**
-     * Find orders by buyer
-     */
+    
+
     public function findByBuyer(int $buyerId): array
     {
         $stmt = $this->db->prepare(
@@ -109,9 +96,8 @@ class Order extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Find orders for a seller (orders containing their products)
-     */
+    
+
     public function findBySeller(int $sellerId): array
     {
         $stmt = $this->db->prepare(
@@ -127,9 +113,8 @@ class Order extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Get sales data for seller's last 7 days
-     */
+    
+
     public function getSellerSalesLast7Days(int $sellerId): array
     {
         $stmt = $this->db->prepare(
@@ -148,25 +133,22 @@ class Order extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Update order status
-     */
+    
+
     public function updateStatus(int $orderId, string $status): bool
     {
         return $this->update($orderId, ['status' => $status]);
     }
 
-    /**
-     * Upload payment proof
-     */
+    
+
     public function uploadPaymentProof(int $orderId, string $filename): bool
     {
         return $this->update($orderId, ['payment_proof' => $filename]);
     }
 
-    /**
-     * Get order with items
-     */
+    
+
     public function getOrderWithItems(int $orderId): ?array
     {
         $order = $this->findById($orderId);
@@ -184,9 +166,8 @@ class Order extends BaseModel
         return $order;
     }
 
-    /**
-     * Get detailed order for seller — includes buyer info + verifies seller owns products in order
-     */
+    
+
     public function getSellerOrderDetail(int $orderId, int $sellerId): ?array
     {
         $stmt = $this->db->prepare(
@@ -202,7 +183,7 @@ class Order extends BaseModel
         $order = $stmt->fetch();
         if (!$order) return null;
 
-        // Get only items from this seller
+        
         $stmtItems = $this->db->prepare(
             "SELECT oi.*, p.name as product_name, p.image as product_image
              FROM order_items oi
@@ -215,9 +196,8 @@ class Order extends BaseModel
         return $order;
     }
 
-    /**
-     * Find orders for a seller, optionally filtered by status
-     */
+    
+
     public function findBySellerFiltered(int $sellerId, ?string $status = null): array
     {
         $sql = "SELECT DISTINCT o.*, u.username as buyer_name,

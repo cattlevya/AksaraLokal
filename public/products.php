@@ -1,8 +1,5 @@
 <?php
-/**
- * Products Listing Handler
- * GET params: ?category=N to filter by category
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Product.php';
 require_once BASE_PATH . '/classes/Category.php';
@@ -17,12 +14,11 @@ $maxPrice = isset($_GET['max_price']) && $_GET['max_price'] !== '' ? (float)$_GE
 $sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 
 $page = isset($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
-$limit = 12; // CPMK-01 requirement: min 10 data/halaman
+$limit = 12; 
 $offset = ($page - 1) * $limit;
 
 $categories = $categoryModel->findAll('name', 'ASC');
 
-// Build filters array
 $filters = [
     'keyword'   => $searchQuery,
     'category'  => $currentCategory,
@@ -31,15 +27,12 @@ $filters = [
     'sort'      => $sort
 ];
 
-// Get total data and calculate pages
 $totalData = $productModel->countAdvanced($filters);
 $totalPages = ceil($totalData / $limit);
 if ($totalPages < 1) $totalPages = 1;
 
-// Get products for current page
 $products = $productModel->searchAdvanced($filters, $limit, $offset);
 
-// Dynamic Page Title
 if ($searchQuery !== '') {
     $pageTitle = "Search: $searchQuery";
 } elseif ($currentCategory) {

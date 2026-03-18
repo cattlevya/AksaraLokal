@@ -1,8 +1,5 @@
 <?php
-/**
- * Seller Product Add/Edit Form View
- * Variables: $product (null for add), $categories
- */
+
 $isEdit = $product !== null;
 ?>
 <div class="mb-6">
@@ -22,7 +19,7 @@ $isEdit = $product !== null;
         <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
         <?php endif; ?>
 
-        <!-- Name -->
+        
         <div>
             <label class="block text-sm font-medium text-taupe-dark mb-1.5">Product Name <span class="text-taupe-mid">*</span></label>
             <input type="text" name="name" required value="<?= e($isEdit ? $product['name'] : ($_POST['name'] ?? '')) ?>"
@@ -30,7 +27,7 @@ $isEdit = $product !== null;
                    placeholder="e.g. Vas Keramik Bali">
         </div>
 
-        <!-- Description -->
+        
         <div>
             <label class="block text-sm font-medium text-taupe-dark mb-1.5">Description <span class="text-taupe-mid">*</span></label>
             <textarea name="description" required rows="4"
@@ -38,7 +35,7 @@ $isEdit = $product !== null;
                       placeholder="Describe your product..."><?= e($isEdit ? $product['description'] : ($_POST['description'] ?? '')) ?></textarea>
         </div>
 
-        <!-- Price + Stock Row -->
+        
         <div class="grid grid-cols-2 gap-4">
             <div>
                 <label class="block text-sm font-medium text-taupe-dark mb-1.5">Price (Rp) <span class="text-taupe-mid">*</span></label>
@@ -56,7 +53,7 @@ $isEdit = $product !== null;
             </div>
         </div>
 
-        <!-- Category -->
+        
         <div>
             <label class="block text-sm font-medium text-taupe-dark mb-1.5">Category <span class="text-taupe-mid">*</span></label>
             <select name="category_id" required
@@ -70,7 +67,7 @@ $isEdit = $product !== null;
             </select>
         </div>
 
-        <!-- Image -->
+        
         <div>
             <label class="block text-sm font-medium text-taupe-dark mb-1.5">
                 Product Image <?= $isEdit ? '(leave empty to keep current)' : '' ?>
@@ -93,7 +90,7 @@ $isEdit = $product !== null;
             </div>
         </div>
 
-        <!-- Submit -->
+        
         <div class="flex items-center gap-3 pt-4">
             <button type="submit" class="px-6 py-2.5 bg-taupe-dark text-off-white rounded-lg text-sm font-medium hover:bg-[#7a6a58] transition-colors">
                 <?= $isEdit ? 'Update Product' : 'Create Product' ?>

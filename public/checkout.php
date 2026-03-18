@@ -1,11 +1,5 @@
 <?php
-/**
- * Checkout Handler
- * POST: Apply voucher (AJAX) OR Place order (form submit with CSRF)
- *   - Uses PDO Transaction + SELECT FOR UPDATE (pessimistic locking)
- *   - Payment proof upload (JPG/PNG, max 2MB)
- * GET: Render checkout page
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Cart.php';
 require_once BASE_PATH . '/classes/Product.php';
@@ -14,7 +8,6 @@ require_once BASE_PATH . '/classes/Voucher.php';
 
 requireLogin();
 
-// ── AJAX: Apply Voucher ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'apply_voucher') {
     header('Content-Type: application/json');
     $code = strtoupper(trim($_POST['voucher_code'] ?? ''));
@@ -32,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'apply
     exit;
 }
 
-// ── POST: Place Order ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid request. Please try again.');
@@ -44,12 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         redirect('/products.php');
     }
 
-    // Handle payment proof upload
+    
     $paymentProofFile = null;
     if (isset($_FILES['payment_proof']) && $_FILES['payment_proof']['error'] === UPLOAD_ERR_OK) {
         $file = $_FILES['payment_proof'];
         
-        // Validate type
+        
         $allowedTypes = ['image/jpeg', 'image/png'];
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mimeType = finfo_file($finfo, $file['tmp_name']);
@@ -60,13 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             redirect('/checkout.php');
         }
 
-        // Validate size (2MB)
+        
         if ($file['size'] > 2 * 1024 * 1024) {
             setFlash('error', 'Payment proof must be under 2MB.');
             redirect('/checkout.php');
         }
 
-        // Upload
+        
         $ext = $mimeType === 'image/png' ? 'png' : 'jpg';
         $paymentProofFile = 'proof_' . time() . '_' . uniqid() . '.' . $ext;
         
@@ -76,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         move_uploaded_file($file['tmp_name'], UPLOAD_PATH . $paymentProofFile);
     }
 
-    // Calculate totals
+    
     $subtotal   = Cart::getSubtotal();
     $shipping   = 12000;
     $tax        = round($subtotal * 0.08);
@@ -88,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     
     $totalAmount = $subtotal + $shipping + $tax - $discount;
 
-    // Prepare cart items for order
+    
     $cartItems = [];
     foreach (Cart::getItems() as $item) {
         $cartItems[] = [
@@ -98,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
         ];
     }
 
-    // Create order with pessimistic locking
+    
     try {
         $orderModel = new Order();
         $orderId = $orderModel->createWithItems(
@@ -108,13 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
             $paymentProofFile
         );
 
-        // Increment voucher usage if applicable
+        
         if (isset($_SESSION['voucher_id'])) {
             $voucherModel = new Voucher();
             $voucherModel->incrementUsage($_SESSION['voucher_id']);
         }
 
-        // Clear cart and voucher session
+        
         Cart::clear();
         unset($_SESSION['voucher_code'], $_SESSION['voucher_discount'], $_SESSION['voucher_id']);
 
@@ -127,7 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['place_order'])) {
     }
 }
 
-// ── GET: Render checkout page ──
 if (Cart::isEmpty()) {
     setFlash('error', 'Your cart is empty.');
     redirect('/products.php');

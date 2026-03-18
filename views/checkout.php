@@ -1,9 +1,5 @@
 <?php
-/**
- * Checkout View
- * Variables: $cartItems, $subtotal
- * Features: Order Summary sidebar, voucher input, DND payment proof upload
- */
+
 $shipping = 12000;
 $tax = round($subtotal * 0.08);
 
@@ -23,7 +19,7 @@ $total = $subtotal + $shipping + $tax - $discount;
         <?= csrfField() ?>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- ── Left: Cart Items ── -->
+            
             <div class="lg:col-span-2">
                 <p class="text-xs tracking-[0.15em] uppercase text-taupe-mid font-medium mb-4 pb-2 border-b border-taupe-light/30">Items in Cart</p>
 
@@ -46,7 +42,7 @@ $total = $subtotal + $shipping + $tax - $discount;
                     <?php endforeach; ?>
                 </div>
 
-                <!-- Voucher -->
+                
                 <div class="mt-8">
                     <p class="text-sm text-taupe-mid mb-2">Have a voucher code?</p>
                     <div class="flex gap-2">
@@ -64,7 +60,7 @@ $total = $subtotal + $shipping + $tax - $discount;
                 </div>
             </div>
 
-            <!-- ── Right: Order Summary & Payment ── -->
+            
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-xl border border-taupe-light/30 p-6 sticky top-24">
                     <h3 class="font-serif text-xl text-taupe-dark mb-5">Order Summary</h3>
@@ -93,7 +89,7 @@ $total = $subtotal + $shipping + $tax - $discount;
                         </div>
                     </div>
 
-                    <!-- Payment Proof Upload -->
+                    
                     <div class="mt-6">
                         <h4 class="text-sm font-medium text-taupe-dark mb-1">Upload Payment Proof</h4>
                         <p class="text-xs text-taupe-mid mb-3">Please upload a screenshot or photo of your bank transfer (JPG, PNG).</p>
@@ -111,7 +107,7 @@ $total = $subtotal + $shipping + $tax - $discount;
                         </div>
                     </div>
 
-                    <!-- Submit -->
+                    
                     <button type="submit" name="place_order" 
                             class="w-full mt-6 py-3.5 bg-taupe-dark text-off-white rounded-lg font-medium text-sm tracking-wider uppercase hover:bg-[#7a6a58] transition-colors">
                         Complete Purchase

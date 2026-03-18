@@ -1,13 +1,8 @@
 <?php
-/**
- * Product Detail View — Matches reference template (Lumière style)
- * Flash sale countdown synced with server via data attributes
- * Variables: $product, $relatedProducts
- */
+
 $isFlashSale = $product['flash_sale_price'] && strtotime($product['flash_sale_end']) > time();
 $currentPrice = $isFlashSale ? $product['flash_sale_price'] : $product['price'];
 
-// Google-hosted product images
 $productImages = [
     1 => 'https://lh3.googleusercontent.com/aida-public/AB6AXuC27s3SVeZloGg3xQwglafaNxuqvozAfCTexXmg8m5O2--W994rsaSs7SdcskpmKkaS93nBw8sJzsO-d_a5UAq1Z_nJ4qqXU0xD_l99UyO5054T8TQimbCNQFGRHT7NJD3gNUSbFFaihD2InCrm0I_vvhh-5NlbFptKrObCztB0Qko1kknEwzIPWdnn2OxFxi7f4grNnFIpRELd_9m9Fiy8nok7YCvJCQkKkQQ5Z9rGAhd15Kkzt-GUOYNXdfV42wyOac7Otu0KDmY',
     2 => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBn_qx-kqHtIPv-V5zoUDrABWCFUwMXRtEKLToZ5GdRdG-yRhxo04r8Sw6HnhJSQu1o1NaRwmaFDCRSjog14XJ-CvMfDKqriKLjV1m3LirEaAz2VfubXJfifOXEEYsuKHhzSUo0SYasiZAahUdMw6pE2CK9DQTn1yvhR-BYUpTV5rLiM4SRyjt5DqvuoWqi6hTtnUdYZTLcmi3wLix2IgVxF0i6_bZ6kykAOjeAH14lZf98qbBH9M0Fj2z3GqgGXiw0HnaOfr8IKEM',
@@ -24,17 +19,17 @@ $imgSrc = $productImages[$product['id']] ?? BASE_URL . '/assets/images/' . e($pr
 <section class="max-w-7xl mx-auto px-4 py-10">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-14">
 
-        <!-- ── Left: Product Image ── -->
+        
         <div>
             <div class="aspect-square overflow-hidden bg-taupe-cream/20">
                 <img src="<?= $imgSrc ?>" alt="<?= e($product['name']) ?>" class="w-full h-full object-cover">
             </div>
         </div>
 
-        <!-- ── Right: Product Info ── -->
+        
         <div class="flex flex-col">
             <?php if ($isFlashSale): ?>
-            <!-- Flash Sale Banner -->
+            
             <div class="flash-badge rounded-lg px-5 py-3 mb-5 flex items-center justify-between">
                 <div class="flex items-center gap-2">
                     <span class="w-2 h-2 bg-taupe-cream rounded-full animate-pulse"></span>
@@ -51,15 +46,15 @@ $imgSrc = $productImages[$product['id']] ?? BASE_URL . '/assets/images/' . e($pr
             </div>
             <?php endif; ?>
 
-            <!-- Category -->
+            
             <p class="text-xs tracking-[0.2em] uppercase text-taupe-mid mb-2"><?= e($product['category_name']) ?> Collection</p>
 
-            <!-- Product Name -->
+            
             <h1 class="font-serif text-3xl md:text-4xl text-taupe-dark italic leading-tight mb-3">
                 <?= e($product['name']) ?>
             </h1>
 
-            <!-- Price -->
+            
             <div class="flex items-baseline gap-3 mb-4">
                 <span class="text-2xl font-medium text-taupe-dark"><?= formatRupiah($currentPrice) ?></span>
                 <?php if ($isFlashSale): ?>
@@ -67,7 +62,7 @@ $imgSrc = $productImages[$product['id']] ?? BASE_URL . '/assets/images/' . e($pr
                 <?php endif; ?>
             </div>
 
-            <!-- Stock Indicator -->
+            
             <div class="flex items-center gap-2 mb-6 pb-6 border-b border-taupe-light/30">
                 <?php
                 $c1 = $product['stock'] <= 5 ? 'bg-taupe-dark' : 'bg-taupe-mid';
@@ -82,7 +77,7 @@ $imgSrc = $productImages[$product['id']] ?? BASE_URL . '/assets/images/' . e($pr
                 </span>
             </div>
 
-            <!-- Description -->
+            
             <div class="mb-6">
                 <h3 class="font-semibold text-taupe-dark mb-2">The Artisan Story</h3>
                 <p class="text-sm text-taupe-mid leading-relaxed font-serif italic mb-3">
@@ -91,7 +86,7 @@ $imgSrc = $productImages[$product['id']] ?? BASE_URL . '/assets/images/' . e($pr
                 <p class="text-sm text-taupe-mid/80 leading-relaxed"><?= e($product['description']) ?></p>
             </div>
 
-            <!-- Quantity + Add to Bag -->
+            
             <form id="add-to-cart-form" class="mt-auto">
                 <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
 
@@ -109,7 +104,7 @@ $imgSrc = $productImages[$product['id']] ?? BASE_URL . '/assets/images/' . e($pr
                 </button>
             </form>
 
-            <!-- Trust Badges -->
+            
             <div class="flex items-center justify-between mt-4 text-xs text-taupe-mid">
                 <span>✓ Free Local Shipping</span>
                 <span>🛡 Authenticity Guaranteed</span>
@@ -118,7 +113,6 @@ $imgSrc = $productImages[$product['id']] ?? BASE_URL . '/assets/images/' . e($pr
     </div>
 </section>
 
-<!-- ═══ Related Products ═══ -->
 <?php if (!empty($relatedProducts)): ?>
 <section class="max-w-7xl mx-auto px-4 py-10 border-t border-taupe-light/30">
     <h2 class="text-2xl font-serif text-taupe-dark italic mb-6">Complements the Collection</h2>

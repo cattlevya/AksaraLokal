@@ -1,8 +1,5 @@
 <?php
-/**
- * Home Page — Public Entry Point
- * Loads featured products, categories, and renders home view
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Product.php';
 require_once BASE_PATH . '/classes/Category.php';

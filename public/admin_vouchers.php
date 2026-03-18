@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Vouchers Controller
- * Handles CRUD for master data vouchers
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Voucher.php';
 
@@ -10,7 +7,6 @@ requireAdmin();
 
 $voucherModel = new Voucher();
 
-// ── Handle POST: Create, Update, Delete ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid token. Please try again.');
@@ -54,8 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/admin_vouchers.php');
 }
 
-// ── GET: Load all vouchers ──
-// Use BaseModel's findAll() to fetch all vouchers
 $vouchers = $voucherModel->findAll('id', 'DESC');
 
 $pageTitle = 'Manage Vouchers';

@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Users View
- * Variables: $users, $page, $totalPages, $totalUsers
- */
+
 ?>
 <div class="mb-6 flex justify-between items-end">
     <div>
@@ -42,7 +39,7 @@
                         <td class="py-4 px-6 text-right">
                             <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <?php if ((int)$u['id'] !== (int)$_SESSION['user_id']): ?>
-                                    <!-- Change Role Form -->
+                                    
                                     <form action="<?= BASE_URL ?>/admin_users.php" method="POST" class="inline">
                                         <?= csrfField() ?>
                                         <input type="hidden" name="action" value="update_role">
@@ -54,7 +51,7 @@
                                         </select>
                                     </form>
 
-                                    <!-- Delete Button -->
+                                    
                                     <form action="<?= BASE_URL ?>/admin_users.php" method="POST" class="inline" onsubmit="return confirm('WARNING: Permanently delete this user? This cannot be undone.')">
                                         <?= csrfField() ?>
                                         <input type="hidden" name="action" value="delete">
@@ -77,7 +74,7 @@
         </table>
     </div>
     
-    <!-- Pagination (10 items / page) -->
+    
     <?php if ($totalPages > 1): ?>
     <div class="px-6 py-4 border-t border-taupe-light/30 bg-off-white flex justify-between items-center">
         <span class="text-xs text-taupe-mid uppercase tracking-wide">

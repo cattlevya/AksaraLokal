@@ -1,14 +1,9 @@
 <?php
-/**
- * Cart Handler
- * POST (AJAX): add, update, remove items from session cart
- * GET: Render cart page
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Cart.php';
 require_once BASE_PATH . '/classes/Product.php';
 
-// ── AJAX POST actions ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     $action = $_POST['action'] ?? '';
@@ -30,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit;
             }
 
-            // Use flash sale price if applicable
+            
             $price = ($product['flash_sale_price'] && strtotime($product['flash_sale_end']) > time())
                 ? $product['flash_sale_price']
                 : $product['price'];
@@ -58,7 +53,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// ── GET: Render cart page ──
 $cartItems = Cart::getItems();
 $subtotal  = Cart::getSubtotal();
 

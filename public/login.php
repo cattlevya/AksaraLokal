@@ -1,13 +1,8 @@
 <?php
-/**
- * Login Handler
- * POST: Authenticate user, start session
- * GET: Render login form
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/User.php';
 
-// Redirect if already logged in
 if (isLoggedIn()) {
     redirect('/');
 }
@@ -15,7 +10,7 @@ if (isLoggedIn()) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-    // Validate CSRF
+    
     if (!validateCsrfToken()) {
         $error = 'Invalid request. Please try again.';
     } else {
@@ -36,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 
                 setFlash('success', 'Welcome back, ' . $user['username'] . '!');
 
-                // Redirect based on role
+                
                 if ($user['role'] === 'seller') {
                     redirect('/seller_dashboard.php');
                 } elseif ($user['role'] === 'admin') {

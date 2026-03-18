@@ -1,14 +1,11 @@
 <?php
-/**
- * Profile View
- * Variables: $userData, $userOrders
- */
+
 ?>
 <section class="max-w-4xl mx-auto px-4 py-10">
     <h1 class="font-serif text-3xl text-taupe-dark italic mb-8">My Profile</h1>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Profile Card -->
+        
         <div class="bg-white rounded-xl border border-taupe-light/30 p-6 text-center">
             <div class="w-20 h-20 bg-taupe-light rounded-full mx-auto flex items-center justify-center mb-4">
                 <svg class="w-10 h-10 text-taupe-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,7 +29,7 @@
                 </p>
             </div>
 
-            <!-- Action Buttons -->
+            
             <div class="mt-5 pt-4 border-t border-taupe-light/30 space-y-2">
                 <?php if ($userData['role'] === 'admin'): ?>
                 <a href="<?= BASE_URL ?>/admin_dashboard.php" class="flex items-center justify-center w-full py-2.5 rounded-lg bg-taupe-dark text-off-white text-sm font-medium hover:bg-[#7a6a58] transition-colors no-underline">
@@ -52,7 +49,7 @@
             </div>
         </div>
 
-        <!-- Order History -->
+        
         <div class="md:col-span-2">
             <h2 class="font-serif text-xl text-taupe-dark italic mb-4">Order History</h2>
             <?php if (empty($userOrders)): ?>

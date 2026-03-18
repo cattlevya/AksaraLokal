@@ -1,7 +1,5 @@
 <?php
-/**
- * Profile Handler
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/User.php';
 require_once BASE_PATH . '/classes/Order.php';

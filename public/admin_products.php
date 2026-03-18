@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Products Controller
- * Handles Product Approvals (toggling is_active)
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/AdminModel.php';
 
@@ -10,7 +7,6 @@ requireAdmin();
 
 $adminModel = new AdminModel();
 
-// ── Handle POST: Toggle Status ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid token. Please try again.');
@@ -30,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/admin_products.php');
 }
 
-// ── GET: Pagination ──
 $limit = 10;
 $page = max(1, (int)($_GET['page'] ?? 1));
 $offset = ($page - 1) * $limit;

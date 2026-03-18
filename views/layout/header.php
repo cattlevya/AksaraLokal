@@ -1,8 +1,5 @@
 <?php
-/**
- * Layout Header — Exact match to Aksara Lokal reference template
- * Capsule bottom nav, SVG icons, taupe-cream color, Playfair + Inter
- */
+
 $cartCount = getCartCount();
 $user = currentUser();
 $flash = getFlash();
@@ -15,7 +12,7 @@ $flash = getFlash();
     <title><?= e($pageTitle ?? 'Aksara Lokal') ?> — Aksara Lokal</title>
     <meta name="description" content="<?= e($pageDesc ?? 'Handpicked artisanal goods from across the Indonesian archipelago.') ?>">
 
-    <!-- Tailwind CSS CDN -->
+    
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -84,15 +81,15 @@ $flash = getFlash();
 </head>
 <body class="pb-24">
 
-    <!-- ═══ Top Navigation & Branding ═══ -->
+    
     <header class="sticky top-0 z-50 bg-off-white/90 backdrop-blur-md border-b border-taupe-light/20">
         <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
-            <!-- Logo -->
+            
             <a href="<?= BASE_URL ?>/" class="text-2xl font-serif tracking-widest uppercase text-taupe-dark no-underline">
                 Aksara<span class="font-normal italic">Lokal</span>
             </a>
 
-            <!-- Search Bar -->
+            
             <form action="<?= BASE_URL ?>/products.php" method="GET" class="relative w-full md:w-96">
                 <input type="text" name="q" placeholder="Cari kerajinan tangan..."
                        value="<?= e($_GET['q'] ?? '') ?>"
@@ -106,7 +103,7 @@ $flash = getFlash();
         </div>
     </header>
 
-    <!-- Flash Messages (floating toast) -->
+    
     <?php if ($flash): ?>
     <div id="toast-notif" class="fixed top-20 right-4 z-[60] max-w-sm animate-[slideIn_0.3s_ease] rounded-xl px-5 py-3 text-sm font-medium shadow-lg backdrop-blur-md bg-white/90 text-taupe-dark border border-taupe-light/40" onclick="this.remove()">
         <?= e($flash['message']) ?>

@@ -1,9 +1,5 @@
 <?php
-/**
- * Seller Dashboard Handler
- * Requires seller role
- * Features: Stats, ASCII chart, recent orders, low stock alerts
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Product.php';
 require_once BASE_PATH . '/classes/Order.php';
@@ -14,16 +10,13 @@ $sellerId     = $_SESSION['user_id'];
 $productModel = new Product();
 $orderModel   = new Order();
 
-// ── Load data ──
 $sellerProducts = $productModel->findBySeller($sellerId);
 $sellerOrders   = $orderModel->findBySeller($sellerId);
 $salesData      = $orderModel->getSellerSalesLast7Days($sellerId);
 
-// Stats
 $pendingOrders  = array_filter($sellerOrders, fn($o) => $o['status'] === 'pending');
 $lowStockProducts = array_filter($sellerProducts, fn($p) => $p['stock'] <= 5);
 
-// ── Generate ASCII Chart ──
 $asciiChart = generateAsciiChart($salesData);
 
 function generateAsciiChart(array $salesData): string

@@ -1,9 +1,5 @@
 <?php
-/**
- * Seller Product Management Controller
- * Requires seller role
- * Handles: list, add, edit, delete, toggle active
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/Product.php';
 require_once BASE_PATH . '/classes/Category.php';
@@ -14,7 +10,6 @@ $sellerId      = $_SESSION['user_id'];
 $productModel  = new Product();
 $categoryModel = new Category();
 
-// ── POST Actions ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validateCsrfToken()) {
         setFlash('error', 'Invalid request.');
@@ -36,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 redirect('/seller_products.php?action=add');
             }
 
-            // Handle image upload
+            
             $imageName = 'default.jpg';
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                 $imageName = handleImageUpload($_FILES['image']);
@@ -81,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'category_id' => $categoryId,
             ];
 
-            // Handle optional new image
+            
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                 $imageName = handleImageUpload($_FILES['image']);
                 if ($imageName) {
@@ -112,9 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/seller_products.php');
 }
 
-/**
- * Handle image upload — returns filename or false
- */
 function handleImageUpload(array $file): string|false
 {
     $allowedTypes = ['image/jpeg', 'image/png'];
@@ -141,7 +133,6 @@ function handleImageUpload(array $file): string|false
     return $filename;
 }
 
-// ── GET: Determine which view to show ──
 $viewAction = $_GET['action'] ?? 'list';
 
 if ($viewAction === 'add') {

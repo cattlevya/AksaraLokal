@@ -1,13 +1,9 @@
 <?php
-/**
- * Cart Class — Session-based Shopping Cart
- * Not extending BaseModel as this is session-only (no DB table)
- */
+
 class Cart
 {
-    /**
-     * Initialize cart in session
-     */
+    
+
     public static function init(): void
     {
         if (!isset($_SESSION['cart'])) {
@@ -15,14 +11,13 @@ class Cart
         }
     }
 
-    /**
-     * Add item to cart
-     */
+    
+
     public static function add(int $productId, string $name, float $price, int $quantity = 1, string $image = 'default.jpg'): void
     {
         self::init();
 
-        // If product already in cart, increment quantity
+        
         foreach ($_SESSION['cart'] as &$item) {
             if ($item['product_id'] === $productId) {
                 $item['quantity'] += $quantity;
@@ -31,7 +26,7 @@ class Cart
         }
         unset($item);
 
-        // Add new item
+        
         $_SESSION['cart'][] = [
             'product_id' => $productId,
             'name'       => $name,
@@ -41,9 +36,8 @@ class Cart
         ];
     }
 
-    /**
-     * Update item quantity
-     */
+    
+
     public static function updateQty(int $productId, int $quantity): void
     {
         self::init();
@@ -60,9 +54,8 @@ class Cart
         }
     }
 
-    /**
-     * Remove item from cart
-     */
+    
+
     public static function remove(int $productId): void
     {
         self::init();
@@ -71,9 +64,8 @@ class Cart
         );
     }
 
-    /**
-     * Get all cart items (syncs with DB for accurate pricing)
-     */
+    
+
     public static function getItems(): array
     {
         self::init();
@@ -84,12 +76,12 @@ class Cart
         foreach ($_SESSION['cart'] as $item) {
             $product = $productModel->findById($item['product_id']);
             
-            // Remove if product no longer exists or is inactive
+            
             if (!$product || !$product['is_active']) {
                 continue; 
             }
             
-            // Recalculate price: check if flash sale is still active
+            
             $price = ($product['flash_sale_price'] && strtotime($product['flash_sale_end']) > time())
                 ? (float)$product['flash_sale_price']
                 : (float)$product['price'];
@@ -101,14 +93,13 @@ class Cart
             $validItems[] = $item;
         }
         
-        // Update session with verified items and accurate prices
+        
         $_SESSION['cart'] = $validItems;
         return $_SESSION['cart'];
     }
 
-    /**
-     * Get subtotal
-     */
+    
+
     public static function getSubtotal(): float
     {
         $total = 0;
@@ -118,25 +109,22 @@ class Cart
         return $total;
     }
 
-    /**
-     * Get total item count
-     */
+    
+
     public static function getCount(): int
     {
         return array_sum(array_column(self::getItems(), 'quantity'));
     }
 
-    /**
-     * Clear the cart
-     */
+    
+
     public static function clear(): void
     {
         $_SESSION['cart'] = [];
     }
 
-    /**
-     * Check if cart is empty
-     */
+    
+
     public static function isEmpty(): bool
     {
         return empty(self::getItems());

@@ -1,9 +1,5 @@
 <?php
-/**
- * Register Handler
- * POST: Create new user
- * GET: Render register form
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/User.php';
 
@@ -24,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $phone    = sanitize($_POST['phone'] ?? '');
         $address  = sanitize($_POST['address'] ?? '');
 
-        // Validate
+        
         if (empty($username) || empty($email) || empty($password)) {
             $error = 'Please fill in all required fields.';
         } elseif (strlen($password) < 6) {
@@ -34,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         } else {
             $userModel = new User();
 
-            // Check duplicates
+            
             if ($userModel->findByUsername($username)) {
                 $error = 'Username already taken.';
             } elseif ($userModel->findByEmail($email)) {
@@ -49,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
                     'address'  => $address,
                 ]);
 
-                // Auto-login
+                
                 $_SESSION['user_id']  = $userId;
                 $_SESSION['username'] = $username;
                 $_SESSION['role']     = $role;

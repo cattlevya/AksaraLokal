@@ -1,11 +1,7 @@
 <?php
-/**
- * Seller Dashboard View — Professional dashboard with stats, chart, quick actions
- * Variables: $sellerProducts, $sellerOrders, $salesData, $asciiChart, $pendingOrders, $lowStockProducts
- */
+
 ?>
 
-<!-- Welcome + Quick Actions -->
 <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
     <div>
         <h1 class="font-serif text-2xl text-taupe-dark">Welcome back, <span class="italic"><?= e(currentUser()['username']) ?></span></h1>
@@ -22,7 +18,6 @@
     </div>
 </div>
 
-<!-- Stats Cards -->
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
     <div class="bg-white rounded-xl border border-taupe-light/30 p-5">
         <div class="flex items-center justify-between mb-3">
@@ -69,7 +64,6 @@
     </div>
 </div>
 
-<!-- Sales Chart -->
 <div class="bg-white rounded-xl border border-taupe-light/30 p-6 mb-8 overflow-x-auto">
     <div class="flex items-center justify-between mb-6">
         <div>
@@ -86,7 +80,7 @@
 </div>
 
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <!-- Recent Orders (Quick View) -->
+    
     <div>
         <div class="flex items-center justify-between mb-4">
             <h2 class="font-serif text-xl text-taupe-dark italic">Recent Orders</h2>
@@ -126,7 +120,7 @@
         </div>
     </div>
 
-    <!-- Low Stock Alerts + Quick Product List -->
+    
     <div>
         <?php if (!empty($lowStockProducts)): ?>
         <div class="mb-6">

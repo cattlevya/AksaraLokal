@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Product Approvals View
- * Variables: $products, $page, $totalPages, $totalProducts
- */
+
 ?>
 <div class="mb-6 flex justify-between items-end">
     <div>
@@ -27,7 +24,7 @@
             <tbody class="text-sm divide-y divide-taupe-light/20">
                 <?php foreach ($products as $p): ?>
                     <tr class="hover:bg-off-white transition-colors group">
-                        <!-- Product Item -->
+                        
                         <td class="py-4 px-6">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded overflow-hidden shrink-0 border border-taupe-light/20">
@@ -39,21 +36,21 @@
                                 </div>
                             </div>
                         </td>
-                        <!-- Category -->
+                        
                         <td class="py-4 px-6 text-taupe-mid"><?= e($p['category_name']) ?></td>
-                        <!-- Seller -->
+                        
                         <td class="py-4 px-6">
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-taupe-cream/20 text-taupe-dark text-xs font-medium border border-taupe-cream/50">
                                 <svg class="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                                 <?= e($p['seller_name']) ?>
                             </span>
                         </td>
-                        <!-- Price / Stock -->
+                        
                         <td class="py-4 px-6">
                             <p class="text-taupe-dark font-medium"><?= formatRupiah($p['price']) ?></p>
                             <p class="text-xs mt-0.5 <?= $p['stock'] <= 5 ? 'text-taupe-dark font-bold' : 'text-taupe-mid' ?>">Stock: <?= $p['stock'] ?></p>
                         </td>
-                        <!-- Status -->
+                        
                         <td class="py-4 px-6">
                             <?php if ($p['is_active']): ?>
                                 <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-taupe-dark text-off-white border border-taupe-dark">Active</span>
@@ -61,7 +58,7 @@
                                 <span class="px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-widest bg-taupe-light/50 text-taupe-dark border border-taupe-light">Inactive</span>
                             <?php endif; ?>
                         </td>
-                        <!-- Actions -->
+                        
                         <td class="py-4 px-6 text-right">
                             <form action="<?= BASE_URL ?>/admin_products.php" method="POST" class="inline">
                                 <?= csrfField() ?>
@@ -82,7 +79,7 @@
         </table>
     </div>
     
-    <!-- Pagination (10 items / page) -->
+    
     <?php if ($totalPages > 1): ?>
     <div class="px-6 py-4 border-t border-taupe-light/30 bg-off-white flex justify-between items-center">
         <span class="text-xs text-taupe-mid uppercase tracking-wide">

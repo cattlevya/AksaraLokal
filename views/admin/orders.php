@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Global Orders View
- * Variables: $orders, $page, $totalPages, $totalOrders
- */
+
 ?>
 <div class="mb-6 flex justify-between items-end">
     <div>
@@ -27,27 +24,27 @@
             <tbody class="text-sm divide-y divide-taupe-light/20">
                 <?php foreach ($orders as $o): ?>
                     <tr class="hover:bg-off-white transition-colors group">
-                        <!-- Order ID -->
+                        
                         <td class="py-4 px-6 text-taupe-dark font-mono font-medium">#<?= $o['id'] ?></td>
                         
-                        <!-- Date -->
+                        
                         <td class="py-4 px-6 text-taupe-mid text-xs">
                             <?= date('d M Y', strtotime($o['created_at'])) ?><br>
                             <span class="text-[10px]"><?= date('H:i', strtotime($o['created_at'])) ?> WIB</span>
                         </td>
                         
-                        <!-- Buyer -->
+                        
                         <td class="py-4 px-6">
                             <p class="text-taupe-dark font-medium"><?= e($o['buyer_name']) ?></p>
                             <p class="text-taupe-mid text-[10px]"><?= e($o['buyer_email']) ?></p>
                         </td>
                         
-                        <!-- Total Amount -->
+                        
                         <td class="py-4 px-6 text-taupe-dark font-medium">
                             <?= formatRupiah($o['total_amount']) ?>
                         </td>
                         
-                        <!-- Status -->
+                        
                         <td class="py-4 px-6">
                             <?php 
                                 $statusColors = [
@@ -64,10 +61,10 @@
                             </span>
                         </td>
                         
-                        <!-- Actions -->
+                        
                         <td class="py-4 px-6 text-right">
                             <div class="flex items-center justify-end gap-3">
-                                <!-- View Payment Proof -->
+                                
                                 <?php if ($o['payment_proof']): ?>
                                     <button type="button" onclick="openProofModal('<?= BASE_URL ?>/assets/uploads/<?= e($o['payment_proof']) ?>')" class="text-xs font-medium text-taupe-mid hover:text-taupe-dark flex items-center gap-1 transition-colors">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
@@ -77,7 +74,7 @@
                                     <span class="text-[10px] text-taupe-mid/60 italic">No Proof</span>
                                 <?php endif; ?>
                                 
-                                <!-- Verify Button -->
+                                
                                 <?php if ($o['status'] === 'pending' && $o['payment_proof']): ?>
                                     <form action="<?= BASE_URL ?>/admin_orders.php" method="POST" class="inline" onsubmit="return confirm('Verify payment and mark order #<?= $o['id'] ?> as Confirmed/Paid?')">
                                         <?= csrfField() ?>
@@ -99,7 +96,7 @@
         </table>
     </div>
     
-    <!-- Pagination (10 items / page) -->
+    
     <?php if ($totalPages > 1): ?>
     <div class="px-6 py-4 border-t border-taupe-light/30 bg-off-white flex justify-between items-center">
         <span class="text-xs text-taupe-mid uppercase tracking-wide">
@@ -122,7 +119,6 @@
     <?php endif; ?>
 </div>
 
-<!-- Payment Proof Modal -->
 <div id="proofModal" class="fixed inset-0 bg-black/80 z-[100] hidden items-center justify-center backdrop-blur-sm transition-opacity">
     <div class="relative max-w-2xl w-full mx-4" id="proofModalInner">
         <button type="button" onclick="closeProofModal()" class="absolute -top-10 right-0 text-white/70 hover:text-white transition-colors">

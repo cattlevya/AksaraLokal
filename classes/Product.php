@@ -1,10 +1,6 @@
 <?php
 require_once BASE_PATH . '/classes/BaseModel.php';
 
-/**
- * Product Model
- * Inherits from BaseModel — includes flash sale & pessimistic locking support
- */
 class Product extends BaseModel
 {
     protected string $table = 'products';
@@ -21,7 +17,7 @@ class Product extends BaseModel
     private ?float $flashSalePrice = null;
     private ?string $flashSaleEnd = null;
 
-    // ── Getters ──────────────────────────────────────────
+    
     public function getId(): ?int { return $this->id; }
     public function getSellerId(): int { return $this->sellerId; }
     public function getName(): string { return $this->name; }
@@ -34,7 +30,7 @@ class Product extends BaseModel
     public function getFlashSalePrice(): ?float { return $this->flashSalePrice; }
     public function getFlashSaleEnd(): ?string { return $this->flashSaleEnd; }
 
-    // ── Setters ──────────────────────────────────────────
+    
     public function setName(string $name): void { $this->name = $name; }
     public function setDescription(string $desc): void { $this->description = $desc; }
     public function setPrice(float $price): void { $this->price = $price; }
@@ -42,9 +38,8 @@ class Product extends BaseModel
     public function setCategoryId(int $id): void { $this->categoryId = $id; }
     public function setImage(string $image): void { $this->image = $image; }
 
-    /**
-     * Get active products, newest first
-     */
+    
+
     public function getActive(int $limit = 20): array
     {
         $stmt = $this->db->prepare(
@@ -61,9 +56,8 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Find products by category
-     */
+    
+
     public function findByCategory(int $categoryId, int $limit = 20): array
     {
         $stmt = $this->db->prepare(
@@ -81,9 +75,8 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Find products by seller
-     */
+    
+
     public function findBySeller(int $sellerId): array
     {
         $stmt = $this->db->prepare(
@@ -97,9 +90,8 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Search products by keyword
-     */
+    
+
     public function search(string $keyword, int $limit = 20): array
     {
         $keyword = '%' . $keyword . '%';
@@ -119,9 +111,8 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Advanced Search with Filters and Pagination
-     */
+    
+
     public function searchAdvanced(array $filters, int $limit = 12, int $offset = 0): array
     {
         $sql = "SELECT p.*, c.name as category_name, u.username as seller_name
@@ -141,7 +132,7 @@ class Product extends BaseModel
             $params['cat_id'] = $filters['category'];
         }
         if (!empty($filters['min_price'])) {
-            // Check against flash_sale_price if active, otherwise regular price
+            
             $sql .= " AND (COALESCE((CASE WHEN p.flash_sale_price IS NOT NULL AND p.flash_sale_end > NOW() THEN p.flash_sale_price ELSE NULL END), p.price) >= :min_price)";
             $params['min_price'] = $filters['min_price'];
         }
@@ -178,9 +169,8 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Count Total Advanced Search Rows for Pagination
-     */
+    
+
     public function countAdvanced(array $filters): int
     {
         $sql = "SELECT COUNT(p.id)
@@ -215,10 +205,8 @@ class Product extends BaseModel
         return (int)$stmt->fetchColumn();
     }
 
-    /**
-     * Get product with lock for update (pessimistic locking)
-     * Must be called inside a transaction!
-     */
+    
+
     public function lockForUpdate(int $id): ?array
     {
         $stmt = $this->db->prepare(
@@ -229,9 +217,8 @@ class Product extends BaseModel
         return $result ?: null;
     }
 
-    /**
-     * Decrement stock (used inside transaction)
-     */
+    
+
     public function decrementStock(int $id, int $qty): bool
     {
         $stmt = $this->db->prepare(
@@ -241,9 +228,8 @@ class Product extends BaseModel
         return $stmt->rowCount() > 0;
     }
 
-    /**
-     * Get product detail with joins
-     */
+    
+
     public function getDetail(int $id): ?array
     {
         $stmt = $this->db->prepare(
@@ -258,9 +244,8 @@ class Product extends BaseModel
         return $result ?: null;
     }
 
-    /**
-     * Get related products (same category, exclude current)
-     */
+    
+
     public function getRelated(int $productId, int $categoryId, int $limit = 4): array
     {
         $stmt = $this->db->prepare(
@@ -278,9 +263,8 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Get flash sale products
-     */
+    
+
     public function getFlashSale(): array
     {
         $stmt = $this->db->prepare(
@@ -297,17 +281,15 @@ class Product extends BaseModel
         return $stmt->fetchAll();
     }
 
-    /**
-     * Create a new product for a seller
-     */
+    
+
     public function createProduct(array $data): int
     {
         return $this->create($data);
     }
 
-    /**
-     * Update a product (verifies seller ownership)
-     */
+    
+
     public function updateProduct(int $id, int $sellerId, array $data): bool
     {
         $product = $this->findById($id);
@@ -315,9 +297,8 @@ class Product extends BaseModel
         return $this->update($id, $data);
     }
 
-    /**
-     * Toggle product active status
-     */
+    
+
     public function toggleActive(int $id, int $sellerId): bool
     {
         $product = $this->findById($id);
@@ -325,9 +306,8 @@ class Product extends BaseModel
         return $this->update($id, ['is_active' => $product['is_active'] ? 0 : 1]);
     }
 
-    /**
-     * Delete a product (verifies seller ownership)
-     */
+    
+
     public function deleteProduct(int $id, int $sellerId): bool
     {
         $product = $this->findById($id);
@@ -335,9 +315,8 @@ class Product extends BaseModel
         return $this->delete($id);
     }
 
-    /**
-     * Set flash sale for a product (verifies seller ownership)
-     */
+    
+
     public function setFlashSale(int $id, int $sellerId, float $price, string $endDate): bool
     {
         $product = $this->findById($id);
@@ -349,9 +328,8 @@ class Product extends BaseModel
         ]);
     }
 
-    /**
-     * Remove flash sale from a product (verifies seller ownership)
-     */
+    
+
     public function removeFlashSale(int $id, int $sellerId): bool
     {
         $product = $this->findById($id);
@@ -362,9 +340,8 @@ class Product extends BaseModel
         return $stmt->execute(['id' => $id]);
     }
 
-    /**
-     * Get all products by seller with flash sale info
-     */
+    
+
     public function getFlashSaleBySeller(int $sellerId): array
     {
         $stmt = $this->db->prepare(

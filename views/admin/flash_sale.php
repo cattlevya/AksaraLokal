@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Flash Sale View
- * Variables: $flashSales, $allProducts
- */
+
 ?>
 <div class="mb-6 flex justify-between items-end">
     <div>
@@ -10,13 +7,12 @@
         <p class="text-taupe-mid text-sm mt-1">Manage platform-wide discounts and promotions.</p>
     </div>
     
-    <!-- Button to trigger Add Modal -->
+    
     <button type="button" onclick="openFsModal()" class="bg-taupe-dark hover:bg-[#7a6a58] text-off-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors shadow-sm w-40 text-center">
         + Add Flash Sale
     </button>
 </div>
 
-<!-- Promo Navigation Tabs -->
 <div class="flex gap-8 mb-6 border-b border-taupe-light/30 px-1">
     <a href="<?= BASE_URL ?>/admin_vouchers.php" class="text-sm tracking-wide text-taupe-mid hover:text-taupe-dark transition-colors pb-3 no-underline">Vouchers</a>
     <a href="<?= BASE_URL ?>/admin_flash_sale.php" class="text-sm tracking-wide text-taupe-dark font-medium border-b-2 border-taupe-dark pb-3 -mb-[1px] no-underline">Flash Sale</a>
@@ -80,7 +76,6 @@
     </div>
 </div>
 
-<!-- Modal Overlay for Creating Flash Sale -->
 <div id="fsModal" class="fixed inset-0 bg-black/50 z-[100] hidden items-center justify-center backdrop-blur-sm transition-opacity">
     <div class="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform" id="fsModalInner">
         <form action="<?= BASE_URL ?>/admin_flash_sale.php" method="POST">

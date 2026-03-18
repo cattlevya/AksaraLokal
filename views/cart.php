@@ -1,8 +1,5 @@
 <?php
-/**
- * Cart View
- * Variables: $cartItems, $subtotal
- */
+
 ?>
 <section class="max-w-5xl mx-auto px-4 py-10">
     <h1 class="font-serif text-3xl text-taupe-dark italic mb-2">Your Cart</h1>
@@ -21,14 +18,14 @@
     <div class="space-y-6">
         <?php foreach ($cartItems as $item): ?>
         <div class="flex items-start gap-4 pb-6 border-b border-taupe-light/30" id="cart-item-<?= $item['product_id'] ?>">
-            <!-- Image -->
+            
             <div class="w-20 h-20 rounded-lg overflow-hidden bg-warm-gray shrink-0">
                 <img src="<?= BASE_URL ?>/assets/images/<?= e($item['image']) ?>" alt="<?= e($item['name']) ?>"
                      class="w-full h-full object-cover"
                      onerror="this.src='<?= BASE_URL ?>/assets/images/default.jpg'">
             </div>
 
-            <!-- Info -->
+            
             <div class="flex-1 min-w-0">
                 <div class="flex items-start justify-between">
                     <h3 class="font-serif italic text-taupe-dark text-base"><?= e($item['name']) ?></h3>
@@ -36,7 +33,7 @@
                 </div>
 
                 <div class="flex items-center justify-between mt-3">
-                    <!-- Qty controls -->
+                    
                     <div class="flex items-center gap-2">
                         <button onclick="updateCartQty(<?= $item['product_id'] ?>, <?= $item['quantity'] - 1 ?>)" 
                                 class="w-8 h-8 rounded-md border border-taupe-light text-taupe-dark flex items-center justify-center hover:bg-warm-gray transition-colors text-sm">−</button>
@@ -44,7 +41,7 @@
                         <button onclick="updateCartQty(<?= $item['product_id'] ?>, <?= $item['quantity'] + 1 ?>)" 
                                 class="w-8 h-8 rounded-md border border-taupe-light text-taupe-dark flex items-center justify-center hover:bg-warm-gray transition-colors text-sm">+</button>
                     </div>
-                    <!-- Remove -->
+                    
                     <button onclick="removeCartItem(<?= $item['product_id'] ?>)" class="text-xs text-taupe-mid hover:text-red-500 transition-colors">Remove</button>
                 </div>
             </div>
@@ -52,7 +49,7 @@
         <?php endforeach; ?>
     </div>
 
-    <!-- Subtotal & Checkout -->
+    
     <div class="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <p class="text-taupe-mid text-sm">
             Subtotal: <span class="text-xl font-semibold text-taupe-dark"><?= formatRupiah($subtotal) ?></span>

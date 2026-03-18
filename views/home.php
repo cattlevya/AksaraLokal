@@ -1,12 +1,5 @@
 <?php
-/**
- * Home Page View — Exact match to reference template
- * Hero with real image + gradient overlay
- * Horizontal scrollable product cards with Google-hosted images
- * Variables: $products, $categories
- */
 
-// Map product images to Google-hosted URLs for beautiful demo display
 $productImages = [
     1 => 'https://lh3.googleusercontent.com/aida-public/AB6AXuC27s3SVeZloGg3xQwglafaNxuqvozAfCTexXmg8m5O2--W994rsaSs7SdcskpmKkaS93nBw8sJzsO-d_a5UAq1Z_nJ4qqXU0xD_l99UyO5054T8TQimbCNQFGRHT7NJD3gNUSbFFaihD2InCrm0I_vvhh-5NlbFptKrObCztB0Qko1kknEwzIPWdnn2OxFxi7f4grNnFIpRELd_9m9Fiy8nok7YCvJCQkKkQQ5Z9rGAhd15Kkzt-GUOYNXdfV42wyOac7Otu0KDmY',
     2 => 'https://lh3.googleusercontent.com/aida-public/AB6AXuBn_qx-kqHtIPv-V5zoUDrABWCFUwMXRtEKLToZ5GdRdG-yRhxo04r8Sw6HnhJSQu1o1NaRwmaFDCRSjog14XJ-CvMfDKqriKLjV1m3LirEaAz2VfubXJfifOXEEYsuKHhzSUo0SYasiZAahUdMw6pE2CK9DQTn1yvhR-BYUpTV5rLiM4SRyjt5DqvuoWqi6hTtnUdYZTLcmi3wLix2IgVxF0i6_bZ6kykAOjeAH14lZf98qbBH9M0Fj2z3GqgGXiw0HnaOfr8IKEM',
@@ -18,7 +11,6 @@ $productImages = [
     8 => 'https://lh3.googleusercontent.com/aida-public/AB6AXuDrUi6cJbmKmcdQC5Np-H3OF_Vvtpqn22p4aO0mgwZ-0iBeMzsTq0dSJZ43n_u0NVHLs4mgdPlpEdmgOUIhSqC97tW-cT_s8K3VbBw71kH9Be3GNMMapoqbz-7ANICsfFfmuSydD1r1bDeB2W0RkP2aKUn388PWzAD7jWv6wh3iq_k3qyP-O1MME93uft6wODTEXMDhtUeALA6zgaunArulMLOs491zVs5ojv8yVJerVSiCORtTlOHcljGlarXXV1ECJOwteO58RCw',
 ];
 
-// Location mapping for products
 $productLocations = [
     1 => 'Ubud, Bali',
     2 => 'Ubud, Bali',
@@ -33,7 +25,6 @@ $productLocations = [
 $heroImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIFtxGZQJcchaqjwxZGIDNq-dqmn1259JTU_MLpRZnECVX-XzbiD7giLbXjiPQ0G2xluWQ4Wq8IdKFvNNZVVjM0QChOIb6mIrDPIgmqIs45P6Xt1BYdkQUby68JdJl7P-ruqoocm5sFFeLPf01dN-Fd4Ak1KmFowPUuHp-m51NKPF97n5ffn-Ir6F5dkgbtCIkFpOv3M5BrRxXKIuH9rSzaVadIIl46h5zimJ5ZVVx-xxtIujB73wtRsZRsOJXNJeT-5mz4WrkvTM';
 ?>
 
-<!-- ═══ Hero Section ═══ -->
 <section class="relative h-[70vh] w-full overflow-hidden">
     <img src="<?= $heroImage ?>" alt="Artisan Banner" class="absolute inset-0 w-full h-full object-cover">
     <div class="absolute inset-0 hero-gradient flex items-end p-8 md:p-16">
@@ -50,7 +41,6 @@ $heroImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIFtxGZQJcchaq
     </div>
 </section>
 
-<!-- ═══ Flash Sale ═══ -->
 <section class="pt-16 pb-8 px-4 max-w-7xl mx-auto">
     <div class="flex items-end justify-between mb-8 border-b border-taupe-light/30 pb-4">
         <div>
@@ -71,7 +61,7 @@ $heroImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIFtxGZQJcchaq
             <p class="text-sm text-taupe-mid mt-1">Harap kembali lagi nanti untuk penawaran terbatas terbaik.</p>
         </div>
     <?php else: ?>
-        <!-- Horizontal Scrollable Flash Sale List -->
+        
         <div class="flex gap-6 overflow-x-auto hide-scrollbar pb-8 snap-x">
             <?php foreach ($flashSaleProducts as $fsProduct): ?>
             <a href="<?= BASE_URL ?>/product_detail.php?id=<?= $fsProduct['id'] ?>" class="w-[280px] md:w-[320px] flex-none snap-start group product-card cursor-pointer no-underline block">
@@ -82,7 +72,7 @@ $heroImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIFtxGZQJcchaq
                     
                     <span class="absolute top-4 right-4 flash-badge text-white px-3 py-1 text-[10px] uppercase tracking-tighter rounded-sm">Flash Sale</span>
                     
-                    <!-- Countdown timer overlay -->
+                    
                     <div class="absolute bottom-0 inset-x-0 bg-black/60 backdrop-blur-sm p-3">
                         <div class="flex items-center justify-between text-white text-xs">
                             <span class="uppercase tracking-widest text-[9px] text-taupe-light">Ends in</span>
@@ -114,7 +104,6 @@ $heroImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIFtxGZQJcchaq
     <?php endif; ?>
 </section>
 
-<!-- ═══ Curated Collections ═══ -->
 <section class="py-16 px-4 max-w-7xl mx-auto">
     <div class="flex items-end justify-between mb-8">
         <div>
@@ -124,7 +113,7 @@ $heroImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDIFtxGZQJcchaq
         <a href="<?= BASE_URL ?>/products.php" class="text-sm border-b border-taupe-mid text-taupe-dark pb-1 hover:text-taupe-light transition-colors no-underline">View All</a>
     </div>
 
-    <!-- Horizontal Scrollable Product List -->
+    
     <div class="flex gap-6 overflow-x-auto hide-scrollbar pb-8 snap-x">
         <?php foreach ($products as $i => $product): ?>
         <a href="<?= BASE_URL ?>/product_detail.php?id=<?= $product['id'] ?>" class="w-[280px] md:w-[320px] flex-none snap-start group product-card cursor-pointer no-underline block">

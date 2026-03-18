@@ -1,13 +1,10 @@
 <?php
-/**
- * Products Listing View
- * Variables: $products, $categories, $filters, $page, $totalPages, $totalData, $pageTitle
- */
+
 ?>
 <section class="max-w-7xl mx-auto px-4 py-10">
     <div class="flex flex-col md:flex-row gap-8">
         
-        <!-- Sidebar: Filters -->
+        
         <aside class="md:w-[280px] shrink-0 self-start sticky top-24 z-10">
             <style>
                 /* Hide scrollbar for Sidebar */
@@ -18,7 +15,7 @@
             <form action="<?= BASE_URL ?>/products.php" method="GET" id="filter-form" 
                   class="bg-white/95 backdrop-blur-xl rounded-2xl shadow-sm border border-taupe-light/30 p-6 filter-sidebar max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-y-contain">
                 
-                <!-- Retain search query if exists -->
+                
                 <?php if (!empty($filters['keyword'])): ?>
                     <input type="hidden" name="q" value="<?= e($filters['keyword']) ?>">
                 <?php endif; ?>
@@ -30,7 +27,7 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- Sort -->
+                
                 <div class="mb-8">
                     <label class="block text-xs uppercase tracking-widest font-semibold text-taupe-mid mb-3">Sort Order</label>
                     <div class="relative">
@@ -45,11 +42,11 @@
                     </div>
                 </div>
 
-                <!-- Categories -->
+                
                 <div class="mb-8">
                     <label class="block text-xs uppercase tracking-widest font-semibold text-taupe-mid mb-4">Collection</label>
                     <div class="space-y-1">
-                        <!-- All Products Option -->
+                        
                         <label class="block relative cursor-pointer group">
                             <input type="radio" name="category" value="" class="peer sr-only" <?= empty($filters['category']) ? 'checked' : '' ?> onchange="this.form.submit()">
                             <div class="flex items-center gap-3 p-2.5 rounded-xl transition-all peer-checked:bg-taupe-cream/50 peer-checked:text-taupe-dark text-taupe-mid hover:bg-neutral-50">
@@ -74,7 +71,7 @@
                     </div>
                 </div>
 
-                <!-- Price Range -->
+                
                 <div class="mb-8">
                     <label class="block text-xs uppercase tracking-widest font-semibold text-taupe-mid mb-4">Price Range</label>
                     <div class="flex items-center gap-3">
@@ -100,7 +97,7 @@
             </form>
         </aside>
 
-        <!-- Product Grid -->
+        
         <div class="flex-1 flex flex-col justify-between">
             <div>
                 <div class="flex items-end justify-between mb-6 pb-4 border-b border-taupe-light/30">
@@ -151,18 +148,18 @@
                 <?php endif; ?>
             </div>
 
-            <!-- Pagination Controls -->
+            
             <?php if ($totalPages > 1): ?>
             <div class="mt-8 flex items-center justify-center gap-2">
                 <?php 
-                // Build current query params to preserve filters on page links
+                
                 $params = $_GET;
                 unset($params['page']);
                 $queryString = http_build_query($params);
                 $queryPrefix = $queryString ? '&' . $queryString : '';
                 ?>
                 
-                <!-- Prev Button -->
+                
                 <?php if ($page > 1): ?>
                     <a href="?page=<?= $page - 1 ?><?= $queryPrefix ?>" class="w-10 h-10 flex items-center justify-center rounded-full border border-taupe-light text-taupe-dark hover:bg-taupe-cream transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -173,7 +170,7 @@
                     </span>
                 <?php endif; ?>
 
-                <!-- Page Numbers -->
+                
                 <div class="flex items-center gap-1 mx-2">
                     <?php for ($i = 1; $i <= $totalPages; $i++): ?>
                         <a href="?page=<?= $i ?><?= $queryPrefix ?>" class="w-10 h-10 flex items-center justify-center rounded-full text-sm <?= $i === $page ? 'bg-taupe-dark text-white font-medium shadow-md' : 'text-taupe-mid hover:bg-taupe-cream hover:text-taupe-dark transition-colors' ?>">
@@ -182,7 +179,7 @@
                     <?php endfor; ?>
                 </div>
 
-                <!-- Next Button -->
+                
                 <?php if ($page < $totalPages): ?>
                     <a href="?page=<?= $page + 1 ?><?= $queryPrefix ?>" class="w-10 h-10 flex items-center justify-center rounded-full border border-taupe-light text-taupe-dark hover:bg-taupe-cream transition-colors">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>

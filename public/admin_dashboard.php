@@ -1,8 +1,5 @@
 <?php
-/**
- * Admin Dashboard Controller
- * Displays global platform statistics
- */
+
 require_once __DIR__ . '/../config/app.php';
 require_once BASE_PATH . '/classes/AdminModel.php';
 
@@ -10,7 +7,6 @@ requireAdmin();
 
 $adminModel = new AdminModel();
 
-// Collect Metrics
 $globalRevenue = $adminModel->getGlobalRevenue();
 $totalUsers = $adminModel->countEntity('users');
 $totalProducts = $adminModel->countEntity('products');
