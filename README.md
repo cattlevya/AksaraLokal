@@ -49,7 +49,7 @@ Berikut adalah rincian fitur yang telah diimplementasikan dalam aplikasi ini ses
 Buka terminal/CMD, lalu arahkan ke folder `htdocs` (jika memakai XAMPP):
 ```bash
 cd C:\xampp\htdocs
-git clone https://github.com/cattlevya/AksaraLokal pemweb2
+git clone https://github.com/cattlevya/AksaraLokal.git pemweb2
 ```
 
 2. Persiapan Database
