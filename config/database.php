@@ -1,0 +1,63 @@
+<?php
+/**
+ * Database Singleton Class
+ * Aksara Lokal — PHP 8.2+ Native
+ */
+class Database
+{
+    private static ?Database $instance = null;
+    private PDO $pdo;
+
+    private string $host = 'localhost';
+    private string $dbname = 'aksara_lokal';
+    private string $username = 'root';
+    private string $password = '';
+    private string $charset = 'utf8mb4';
+
+    /**
+     * Private constructor — Singleton Pattern
+     */
+    private function __construct()
+    {
+        $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}";
+        $options = [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES   => false,
+        ];
+
+        try {
+            $this->pdo = new PDO($dsn, $this->username, $this->password, $options);
+        } catch (PDOException $e) {
+            die('Database connection failed: ' . $e->getMessage());
+        }
+    }
+
+    /** Prevent cloning */
+    private function __clone() {}
+
+    /** Prevent unserialization */
+    public function __wakeup()
+    {
+        throw new \Exception("Cannot unserialize singleton");
+    }
+
+    /**
+     * Get the single Database instance
+     */
+    public static function getInstance(): self
+    {
+        if (self::$instance === null) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Get the PDO connection
+     */
+    public function getConnection(): PDO
+    {
+        return $this->pdo;
+    }
+}
