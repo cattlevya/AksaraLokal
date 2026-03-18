@@ -1,5 +1,5 @@
 # E-Commerce UMKM Lokal (Aksara Lokal)
-Tugas Besar Pemrograman Web II - CPMK-01 (Paket 2)
+Tugas Pemrograman Web II - CPMK-01 (Paket 2)
 
 Repositori ini adalah hasil pengerjaan project akhir untuk mata kuliah Pemrograman Web II. Sistem ini pada dasarnya adalah platform e-commerce sederhana dengan multi-role (Admin, Seller, Buyer) yang ditujukan untuk membantu produk-produk UMKM lokal.
 
