@@ -7,14 +7,6 @@ Project ini dibangun murni menggunakan PHP Native (versi 8.x), arsitektur OOP, P
 
 ---
 
-## Identitas Pembuat
-- Nama: [Masukkan Nama Kamu]
-- NIM: [Masukkan NIM Kamu]
-- Program Studi: Informatika, Universitas Jenderal Soedirman
-- Dosen Pengampu: Bapak Mohammad Irham Akbar
-
----
-
 ## Analisis Fitur Keseluruhan
 Berikut adalah rincian fitur yang telah diimplementasikan dalam aplikasi ini sesuai dengan spesifikasi tugas Paket 2 dan beberapa tambahan eksplorasi:
 
@@ -87,6 +79,3 @@ Beberapa akun testing lokal yang bisa langsung dipakai (password semua akun: pas
 - Jika grafik ASCII terlihat berantakan, pastikan Anda tidak menggunakan ekstensi browser yang merubah font text berjenis monospace.
 
 ---
-
-Kredit Khusus:
-Terima kasih kepada Bapak Mohammad Irham Akbar selaku dosen pengampu yang telah menantang kami dengan studi kasus OOP murni tanpa framework ini. Project yang sangat membantu menguatkan fondasi arsitektur web programming.
