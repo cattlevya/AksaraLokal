@@ -7,14 +7,6 @@ Project ini dibangun murni menggunakan PHP Native (versi 8.x), arsitektur OOP, P
 
 ---
 
-## Identitas Pembuat
-- Nama: [Masukkan Nama Kamu]
-- NIM: [Masukkan NIM Kamu]
-- Program Studi: Informatika, Universitas Jenderal Soedirman
-- Dosen Pengampu: Bapak Mohammad Irham Akbar
-
----
-
 ## Analisis Fitur Keseluruhan
 Berikut adalah rincian fitur yang telah diimplementasikan dalam aplikasi ini sesuai dengan spesifikasi tugas Paket 2 dan beberapa tambahan eksplorasi:
 
