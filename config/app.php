@@ -7,7 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 date_default_timezone_set('Asia/Jakarta');
 
 define('BASE_PATH', dirname(__DIR__));
-define('BASE_URL', '/apakekmonyet/public');
+define('BASE_URL', '/pemweb/public');
 define('UPLOAD_PATH', BASE_PATH . '/public/assets/uploads/');
 
 require_once BASE_PATH . '/config/database.php';
